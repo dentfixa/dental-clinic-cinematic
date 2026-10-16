@@ -3,77 +3,102 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}html{background:#0b0a09}body{color:#e9e2d6;font-family:'Noto Serif KR',serif;overflow-x:hidden}
-body:after{content:"";position:fixed;inset:-50%;pointer-events:none;opacity:.08;z-index:9;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:g .6s steps(3) infinite}
+body:after{content:"";position:fixed;inset:-50%;pointer-events:none;opacity:.07;z-index:9;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:g .6s steps(3) infinite}
 @keyframes g{50%{transform:translate(3%,-2%)}}
-h1,h2{font-family:'Cormorant Garamond';font-weight:300;line-height:.9;letter-spacing:-.02em}
+h1,h2,h3{font-family:'Cormorant Garamond';font-weight:300;line-height:.95;letter-spacing:-.02em}
 .k{font-family:'Cormorant Garamond';font-style:italic;letter-spacing:.2em;opacity:.7;font-size:15px}
-p{line-height:2;font-weight:300;font-size:15px;max-width:32em}
+p{line-height:1.9;font-weight:300;font-size:14px}
 .mark{position:fixed;top:22px;left:28px;font-family:'Cormorant Garamond';letter-spacing:.35em;font-size:14px;z-index:8;mix-blend-mode:difference}
+.nav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:8;display:flex;flex-direction:column;gap:14px}
+.nav a{display:block;width:6px;height:6px;border-radius:50%;background:#e9e2d6;opacity:.3;transition:.4s}.nav a.on{opacity:1;transform:scale(1.6)}
 .hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:8vw 6vw}
 .bg{position:absolute;inset:-15% 0;background-size:cover;background-position:center;filter:grayscale(.3) brightness(.55)}
 .hero h1{position:relative;font-size:clamp(64px,13vw,220px)}
-.v{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;padding:14vh 6vw}
-.v h2{font-size:clamp(48px,7vw,110px);margin:.3em 0}
-.ph{height:80vh;overflow:hidden;position:relative}.ph .bg{filter:grayscale(.3) brightness(.75)}
-.inter{height:120vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+.cat{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10vh 4vw 6vh;overflow:hidden}
+.cat:nth-of-type(odd){background:radial-gradient(ellipse at 50% 45%,#2a241d,#0b0a09 70%)}
+.cat:nth-of-type(even){background:radial-gradient(ellipse at 50% 45%,#1d2220,#0b0a09 70%)}
+.chead{display:flex;align-items:center;gap:22px;width:min(1100px,100%);margin-bottom:4vh}
+.chead .num{font-family:'Cormorant Garamond';font-style:italic;font-size:clamp(44px,6vw,86px);opacity:.9}
+.chead .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(233,226,214,.6),transparent)}
+.chead .tt{text-align:right}.chead h2{font-size:clamp(28px,3.4vw,48px)}.chead .k{font-size:12px}
+.book{position:relative;perspective:2200px;touch-action:pan-y;user-select:none;cursor:grab}
+.book:active{cursor:grabbing}
+.page{position:absolute;inset:0;background:#ece5d8;color:#1c1915;overflow:hidden;border-radius:2px;
+ transform-origin:left center;will-change:transform;
+ box-shadow:0 30px 60px -20px rgba(0,0,0,.7),inset -12px 0 24px -12px rgba(0,0,0,.25)}
+.page.dark{background:#141210;color:#e9e2d6}
+.page.dragging{transition:none}
+.in{position:absolute;inset:0;padding:10% 11%;display:flex;flex-direction:column}
+.page .img{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(.35) brightness(.62)}.img+.in{color:#f2ece2}
+.page h3{font-size:clamp(34px,4.2vw,62px);margin:auto 0 .4em}.page p{font-size:13px;max-width:24em}
+.no{margin-top:auto;font-family:'Cormorant Garamond';font-size:12px;letter-spacing:.3em;opacity:.55;display:flex;justify-content:space-between;padding-top:1.4em}
+ul{list-style:none;padding:0;margin-top:1em}li{border-top:1px solid rgba(127,127,127,.35);padding:.7em 0;display:flex;justify-content:space-between;font-size:13px;gap:1em}
+.ctrl{display:flex;align-items:center;gap:26px;margin-top:4vh;font-family:'Cormorant Garamond';letter-spacing:.3em;font-size:13px}
+.ctrl button{background:none;border:1px solid rgba(233,226,214,.4);color:#e9e2d6;width:46px;height:46px;border-radius:50%;font-size:18px;cursor:pointer;transition:.3s}
+.ctrl button:hover{background:#e9e2d6;color:#0b0a09}.ctrl button:disabled{opacity:.2;pointer-events:none}
+.hint{font-family:'Cormorant Garamond';font-style:italic;letter-spacing:.25em;font-size:11px;opacity:.45;margin-top:2vh}
+.inter{height:90vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
 .inter h2{position:relative;font-size:clamp(60px,12vw,200px)}
-.bookwrap{position:relative;background:radial-gradient(ellipse at 50% 40%,#2a241d,#0b0a09 70%)}
-.sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
-.blabel{position:absolute;top:24px;right:28px;font-family:'Cormorant Garamond';letter-spacing:.2em;font-size:14px;opacity:.7}
-.bhint{position:absolute;bottom:18px;font-family:'Cormorant Garamond';font-style:italic;letter-spacing:.25em;font-size:12px;opacity:.5}
-.page{background:#ece5d8;color:#1c1915;overflow:hidden;position:relative}.page.dark{background:#141210;color:#e9e2d6}
-.in{position:absolute;inset:0;padding:9% 10%;display:flex;flex-direction:column}
-.page .img{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(.35) brightness(.65)}.img+.in{color:#f2ece2}
-.page h2{font-size:clamp(34px,4.4vw,68px);margin:auto 0 .4em}.page p{font-size:13px}
-.no{margin-top:auto;font-family:'Cormorant Garamond';font-size:12px;letter-spacing:.3em;opacity:.55;display:flex;justify-content:space-between}
-ul{list-style:none;padding:0;margin-top:1em}li{border-top:1px solid rgba(127,127,127,.35);padding:.8em 0;display:flex;justify-content:space-between;font-size:14px;gap:1em}
 footer{padding:20vh 6vw 6vh}footer h1{font-size:clamp(60px,14vw,230px)}footer .row{display:flex;justify-content:space-between;margin-top:8vh;font-size:12px;opacity:.5;letter-spacing:.2em}
 .r{opacity:0;transform:translateY(60px)}
-@media(max-width:767px){.v{grid-template-columns:1fr}.ph{height:60vh}}
+@media(max-width:767px){.nav{display:none}.chead{gap:12px}.in{padding:12% 10%}.cat{padding:9vh 0 5vh}.chead{padding:0 6vw}}
 </style></head><body>
-<div class="mark">[치과명]</div>
-
-<section class="hero"><div class="bg par" style="background-image:url(img/mist.webp)"></div><div style="position:relative"><span class="k r">Vol. 01 — Seoul</span><h1 class="r">Quiet <i>care,</i><br>slow form.</h1></div></section>
-
-<section class="v" id="story"><div><span class="k r">Chapter I — Story</span><h2 class="r">미소는<br>천천히<br>완성됩니다.</h2><p class="r">우리는 서두르지 않습니다. 한 사람의 얼굴, 말투, 하루의 리듬을 먼저 읽고 나서야 손을 움직입니다. 소음과 소독약 냄새 대신, 나무의 결과 낮은 조도 — 진료실이 아니라 머무는 공간을 만들었습니다.</p></div><div class="ph"><div class="bg par" style="background-image:url(img/forest.webp)"></div></div></section>
-
-<section class="bookwrap" id="care"><div class="sticky"><span class="blabel" id="pg">Chapter II — Care · 01</span><div id="book">
-<div class="page dark" data-density="hard"><div class="img" style="background-image:url(img/still.webp)"></div><div class="in"><span class="k">Chapter II</span><h2>Care<br><i>Collection</i></h2><div class="no"><span>[치과명]</span><span>FIVE RITUALS</span></div></div></div>
-<div class="page"><div class="in"><span class="k">01 — Daily</span><h2>정기 검진과<br>클리닝</h2><p>3–6개월마다, 작은 변화를 먼저 발견합니다.</p><div class="no"><span>01</span><span></span></div></div></div>
-<div class="page"><div class="img" style="background-image:url(img/sage.webp)"></div><div class="in"><span class="k">02 — Keep</span><h2>자연치아<br>보존</h2><p>뽑기 전에, 지킬 수 있는 방법부터.</p><div class="no"><span>02</span><span></span></div></div></div>
-<div class="page"><div class="in"><span class="k">03 — Root</span><h2>임플란트</h2><p>정밀 진단과 계획, 오래 쓰는 하나의 뿌리.</p><div class="no"><span>03</span><span></span></div></div></div>
-<div class="page"><div class="in"><span class="k">04 — Form</span><h2>심미 ·<br>라미네이트</h2><p>얼굴 전체의 균형에서 출발하는 형태.</p><div class="no"><span>04</span><span></span></div></div></div>
-<div class="page"><div class="img" style="background-image:url(img/form.webp)"></div><div class="in"><span class="k">05 — Line</span><h2>교정</h2><p>천천히, 그러나 분명하게 바뀌는 선.</p><div class="no"><span>05</span><span></span></div></div></div>
-<div class="page"><div class="in"><span class="k">Note</span><h2>꼭 필요한<br>만큼만.</h2><p>과잉 진료 없이, 설명은 길게.</p><div class="no"><span>06</span><span></span></div></div></div>
-<div class="page dark" data-density="hard"><div class="img" style="background-image:url(img/clouds.webp)"></div><div class="in"><h2><i>Fin.</i></h2><div class="no"><span>[치과명]</span><span>CARE</span></div></div></div>
-</div><span class="bhint">scroll or swipe to turn</span></div></section>
-
-<section class="inter"><div class="bg par" style="background-image:url(img/form.webp)"></div><h2 class="r">Form<br>follows <i>you.</i></h2></section>
-
-<section class="v" id="people"><div class="ph"><div class="bg par" style="background-image:url(img/sage.webp)"></div></div><div><span class="k r">Chapter III — People</span><h2 class="r">손이<br>기억하는<br>사람들</h2><p class="r">대표원장 [원장명]<br>[학력 · 경력]<br><br>모든 진료는 처음부터 끝까지 한 명의 원장이 책임집니다.</p></div></section>
-
-<section class="v" id="visit"><div><span class="k r">Chapter IV — Visit</span><h2 class="r">오시는 길</h2><ul class="r"><li><span>주소</span><span>[주소]</span></li><li><span>평일</span><span>10:00 – 19:00</span></li><li><span>토요일</span><span>10:00 – 14:00</span></li><li><span>예약</span><span>[전화번호]</span></li></ul></div><div class="ph"><div class="bg par" style="background-image:url(img/clouds.webp)"></div></div></section>
-
+<div class="mark">[치과명]</div><nav class="nav" id="nav"></nav>
+<section class="hero" data-cat><div class="bg par" style="background-image:url(img/mist.webp)"></div><div style="position:relative"><span class="k r">Vol. 01 — Seoul</span><h1 class="r">Quiet <i>care,</i><br>slow form.</h1></div></section>
+<section class="cat" id="cI" data-cat><div class="chead"><span class="num r">I.</span><span class="line"></span><div class="tt r"><span class="k">Chapter One</span><h2>Story</h2></div></div>
+<div class="book"><div class="page dark"><div class="img" style="background-image:url(img/forest.webp)"></div><div class="in"><span class="k">Chapter I</span><h3><i>Story</i></h3><p>천천히 완성되는 미소에 대하여.</p><div class="no"><span>I</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">01 — Pace</span><h3>미소는<br>천천히</h3><p>우리는 서두르지 않습니다. 한 사람의 얼굴, 말투, 하루의 리듬을 먼저 읽습니다.</p><div class="no"><span>01</span><span>[치과명]</span></div></div></div><div class="page"><div class="img" style="background-image:url(img/mist.webp)"></div><div class="in"><span class="k">02 — Space</span><h3>머무는<br>공간</h3><p>소음과 소독약 냄새 대신, 나무의 결과 낮은 조도.</p><div class="no"><span>02</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">03 — Light</span><h3>낮은<br>조도</h3><p>긴장을 덜어내는 빛, 조용한 음악, 느린 시간.</p><div class="no"><span>03</span><span>[치과명]</span></div></div></div><div class="page dark"><div class="img" style="background-image:url(img/still.webp)"></div><div class="in"><span class="k">04 — Promise</span><h3>한 사람,<br>한 시간</h3><p>예약은 넉넉하게. 대기 없이 온전히 당신의 시간으로.</p><div class="no"><span>04</span><span>[치과명]</span></div></div></div></div>
+<div class="ctrl"><button class="prev" aria-label="이전">←</button><span class="cnt">01 / 05</span><button class="next" aria-label="다음">→</button></div><div class="hint">drag · swipe · ← →</div></section>
+<section class="cat" id="cII" data-cat><div class="chead"><span class="num r">II.</span><span class="line"></span><div class="tt r"><span class="k">Care Collection</span><h2>Care</h2></div></div>
+<div class="book"><div class="page dark"><div class="img" style="background-image:url(img/still.webp)"></div><div class="in"><span class="k">Chapter II</span><h3>Care<br><i>Collection</i></h3><p>다섯 가지 리추얼.</p><div class="no"><span>II</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">01 — Daily</span><h3>정기 검진과<br>클리닝</h3><p>3–6개월마다, 작은 변화를 먼저 발견합니다.</p><div class="no"><span>01</span><span>[치과명]</span></div></div></div><div class="page"><div class="img" style="background-image:url(img/sage.webp)"></div><div class="in"><span class="k">02 — Keep</span><h3>자연치아<br>보존</h3><p>뽑기 전에, 지킬 수 있는 방법부터.</p><div class="no"><span>02</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">03 — Root</span><h3>임플란트</h3><p>정밀 진단과 계획, 오래 쓰는 하나의 뿌리.</p><div class="no"><span>03</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">04 — Form</span><h3>심미 ·<br>라미네이트</h3><p>얼굴 전체의 균형에서 출발하는 형태.</p><div class="no"><span>04</span><span>[치과명]</span></div></div></div><div class="page"><div class="img" style="background-image:url(img/form.webp)"></div><div class="in"><span class="k">05 — Line</span><h3>교정</h3><p>천천히, 그러나 분명하게 바뀌는 선.</p><div class="no"><span>05</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">Note</span><h3>꼭 필요한<br>만큼만.</h3><p>과잉 진료 없이, 설명은 길게.</p><div class="no"><span>06</span><span>[치과명]</span></div></div></div></div>
+<div class="ctrl"><button class="prev" aria-label="이전">←</button><span class="cnt">01 / 07</span><button class="next" aria-label="다음">→</button></div><div class="hint">drag · swipe · ← →</div></section>
+<section class="inter" data-cat><div class="bg par" style="background-image:url(img/form.webp)"></div><h2 class="r">Form<br>follows <i>you.</i></h2></section>
+<section class="cat" id="cIII" data-cat><div class="chead"><span class="num r">III.</span><span class="line"></span><div class="tt r"><span class="k">The Hands</span><h2>People</h2></div></div>
+<div class="book"><div class="page dark"><div class="img" style="background-image:url(img/sage.webp)"></div><div class="in"><span class="k">Chapter III</span><h3><i>People</i></h3><p>손이 기억하는 사람들.</p><div class="no"><span>III</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">01 — Director</span><h3>대표원장<br>[원장명]</h3><p>[학력 · 경력]</p><div class="no"><span>01</span><span>[치과명]</span></div></div></div><div class="page"><div class="img" style="background-image:url(img/form.webp)"></div><div class="in"><span class="k">02 — One Hand</span><h3>처음부터<br>끝까지</h3><p>모든 진료는 한 명의 원장이 책임집니다.</p><div class="no"><span>02</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">03 — Team</span><h3>조용한<br>손들</h3><p>위생사와 코디네이터, 같은 속도로 함께 걷는 사람들.</p><div class="no"><span>03</span><span>[치과명]</span></div></div></div></div>
+<div class="ctrl"><button class="prev" aria-label="이전">←</button><span class="cnt">01 / 04</span><button class="next" aria-label="다음">→</button></div><div class="hint">drag · swipe · ← →</div></section>
+<section class="cat" id="cIV" data-cat><div class="chead"><span class="num r">IV.</span><span class="line"></span><div class="tt r"><span class="k">Find Us</span><h2>Visit</h2></div></div>
+<div class="book"><div class="page dark"><div class="img" style="background-image:url(img/clouds.webp)"></div><div class="in"><span class="k">Chapter IV</span><h3><i>Visit</i></h3><p>오시는 길.</p><div class="no"><span>IV</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">01 — Address</span><h3>오시는 길</h3><ul><li><span>주소</span><span>[주소]</span></li><li><span>주차</span><span>[주차 안내]</span></li></ul><div class="no"><span>01</span><span>[치과명]</span></div></div></div><div class="page"><div class="in"><span class="k">02 — Hours</span><h3>진료 시간</h3><ul><li><span>평일</span><span>10:00 – 19:00</span></li><li><span>토요일</span><span>10:00 – 14:00</span></li><li><span>일 · 공휴일</span><span>휴진</span></li></ul><div class="no"><span>02</span><span>[치과명]</span></div></div></div><div class="page dark"><div class="img" style="background-image:url(img/mist.webp)"></div><div class="in"><span class="k">03 — Reserve</span><h3>예약</h3><p>[전화번호]<br>예약제로 운영됩니다.</p><div class="no"><span>03</span><span>[치과명]</span></div></div></div></div>
+<div class="ctrl"><button class="prev" aria-label="이전">←</button><span class="cnt">01 / 04</span><button class="next" aria-label="다음">→</button></div><div class="hint">drag · swipe · ← →</div></section>
 <footer><h1 class="r">See you <i>soon.</i></h1><div class="row"><span>[치과명]</span><span>© 2026</span></div></footer>
-
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 gsap.registerPlugin(ScrollTrigger);
-const m=innerWidth<768,H=innerHeight*.8,W=m?Math.min(innerWidth*.88,H*.66):Math.min(innerWidth*.4,H*.7);
-const pages=document.querySelectorAll('.page'),N=pages.length,steps=m?N-1:N/2; // flips needed
-const wrap=document.getElementById('care');wrap.style.height=(steps+1)*80+'vh';
-const pf=new St.PageFlip(document.getElementById('book'),{width:Math.round(W),height:Math.round(H),size:'fixed',showCover:true,usePortrait:m,maxShadowOpacity:.7,flippingTime:700,mobileScrollSupport:true});
-pf.loadFromHTML(pages);
-const pg=document.getElementById('pg');pf.on('flip',e=>pg.textContent='Chapter II — Care · '+String(e.data+1).padStart(2,'0'));
-let cur=0;
-function target(p){const s=Math.min(steps,Math.floor(p*(steps+.999)));return m?s:(s==0?0:s*2-1)}
-ScrollTrigger.create({trigger:wrap,start:'top top',end:'bottom bottom',onUpdate:self=>{const t=Math.min(N-1,target(self.progress));if(t!==cur){cur=t;const d=Math.abs(pf.getCurrentPageIndex()-t);d>(m?1:2)?pf.turnToPage(t):pf.flip(t)}}});
-window.__pf=pf;
+const books=[];
+function size(b){const m=innerWidth<768,H=Math.min(innerHeight*(m?.56:.6),640),W=m?Math.min(innerWidth*.6,H*.72):Math.min(innerWidth*.34,H*.72);b.style.width=W+'px';b.style.height=H+'px';b.style.margin='0 '+(W*.34)+'px'}
+function pose(d){ // d = page index - continuous position
+  if(d>=0){const c=Math.min(d,3),sc=1-.07*c;return{t:`translateX(${c*22}%) translateY(${(1-sc)*50}%) scale(${sc})`,o:d>2?Math.max(0,3-d):1,b:1-.2*c,z:100-Math.round(d*10)}}
+  const t=-d;
+  if(t<=1){const rot=-90*(1-Math.abs(1-2*t)),sc=1-.07*t;return{t:`translateX(${-15*t}%) translateY(${(1-sc)*50}%) rotateY(${rot}deg) scale(${sc})`,o:1,b:1-.45*Math.sin(Math.PI*t)*.6-.2*t,z:t<.5?101:90}}
+  const c=Math.min(t,3),sc=1-.07*c;return{t:`translateX(${-15*c}%) translateY(${(1-sc)*50}%) scale(${sc})`,o:t>2?Math.max(0,3-t):1,b:1-.2*c,z:100-Math.round(t*10)}}
+document.querySelectorAll('.cat').forEach(sec=>{
+  const b=sec.querySelector('.book');if(!b)return;const pages=[...b.children],N=pages.length;let cur=0,pos=0,raf=0;
+  const cnt=sec.querySelector('.cnt'),pv=sec.querySelector('.prev'),nx=sec.querySelector('.next');
+  function render(){pages.forEach((p,i)=>{const q=pose(i-pos);p.style.transform=q.t;p.style.opacity=q.o;p.style.filter=`brightness(${q.b})`;p.style.zIndex=q.z;p.style.pointerEvents=i==cur?'auto':'none'});
+    cnt.textContent=String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');pv.disabled=cur==0;nx.disabled=cur==N-1}
+  function tween(to){cancelAnimationFrame(raf);const from=pos,t0=performance.now(),D=750;
+    const st=n=>{const k=Math.min(1,(n-t0)/D),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;pos=from+(to-from)*e;render();if(k<1)raf=requestAnimationFrame(st)};raf=requestAnimationFrame(st)}
+  const go=i=>{cur=Math.max(0,Math.min(N-1,i));tween(cur)};
+  pv.onclick=()=>go(cur-1);nx.onclick=()=>go(cur+1);
+  let sx=0,sy=0,dragging=false,lock=null,f=0;
+  b.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;dragging=true;lock=null;f=0;cancelAnimationFrame(raf);b.setPointerCapture(e.pointerId)});
+  b.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(!lock&&Math.hypot(dx,dy)>8)lock=Math.abs(dx)>Math.abs(dy)?'x':'y';
+    if(lock!=='x')return;f=Math.max(-1,Math.min(1,-dx/(b.offsetWidth*1.1)));if((cur==0&&f<0)||(cur==N-1&&f>0))f*=.2;pos=cur+f;render()});
+  const up=()=>{if(!dragging)return;dragging=false;if(lock==='x'){if(f>.15)go(cur+1);else if(f<-.15)go(cur-1);else go(cur)}else if(pos!==cur)go(cur)};
+  b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);
+  size(b);render();books.push({sec,b,go:d=>go(cur+d)});
+});
+addEventListener('resize',()=>books.forEach(o=>size(o.b)));
+addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;const vc=innerHeight/2;
+  const o=books.find(o=>{const r=o.sec.getBoundingClientRect();return r.top<=vc&&r.bottom>=vc});if(o){o.go(e.key==='ArrowRight'?1:-1);e.preventDefault()}});
+// nav dots
+const nav=document.getElementById('nav'),cats=[...document.querySelectorAll('[data-cat]')];
+cats.forEach(c=>{const a=document.createElement('a');a.href='#';a.onclick=e=>{e.preventDefault();lenis.scrollTo(c)};nav.appendChild(a);
+  ScrollTrigger.create({trigger:c,start:'top center',end:'bottom center',onToggle:s=>s.isActive&&[...nav.children].forEach((x,i)=>x.classList.toggle('on',cats[i]===c))})});
 const lenis=new Lenis({lerp:.08});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
 document.querySelectorAll('.par').forEach(el=>gsap.fromTo(el,{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigger:el.parentElement,scrub:true}}));
 gsap.to('.hero .r',{opacity:1,y:0,duration:1.8,stagger:.25,ease:'power3.out',delay:.2});
 document.querySelectorAll('.r').forEach(el=>{if(el.closest('.hero'))return;gsap.to(el,{opacity:1,y:0,duration:1.4,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}})});
+document.querySelectorAll('.book').forEach(b=>gsap.from(b,{opacity:0,y:80,duration:1.4,ease:'power3.out',scrollTrigger:{trigger:b,start:'top 90%'}}));
 </script></body></html>
